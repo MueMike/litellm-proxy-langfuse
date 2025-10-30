@@ -3,36 +3,51 @@
 
 # Model definitions
 model_list:
-  # OpenAI Models
-  - model_name: gpt-4-turbo-preview
+  # OpenAI Models - Latest and Best (October 2025)
+  - model_name: gpt-5
     litellm_params:
-      model: gpt-4-turbo-preview
+      model: gpt-5
       api_key: ${OPENAI_API_KEY}
       
-  - model_name: gpt-4
+  - model_name: gpt-5-mini
     litellm_params:
-      model: gpt-4
+      model: gpt-5-mini
       api_key: ${OPENAI_API_KEY}
       
-  - model_name: gpt-3.5-turbo
+  - model_name: gpt-5-nano
     litellm_params:
-      model: gpt-3.5-turbo
+      model: gpt-5-nano
+      api_key: ${OPENAI_API_KEY}
+      
+  - model_name: gpt-4.1
+    litellm_params:
+      model: gpt-4.1
+      api_key: ${OPENAI_API_KEY}
+      
+  - model_name: gpt-4.1-mini
+    litellm_params:
+      model: gpt-4.1-mini
+      api_key: ${OPENAI_API_KEY}
+      
+  - model_name: gpt-4.5
+    litellm_params:
+      model: gpt-4.5
       api_key: ${OPENAI_API_KEY}
 
-  # Anthropic Claude Models
-  - model_name: claude-3-opus-20240229
+  # Anthropic Claude Models - Latest and Best (October 2025)
+  - model_name: claude-sonnet-4-5
     litellm_params:
-      model: claude-3-opus-20240229
+      model: claude-sonnet-4-5-20250929
       api_key: ${ANTHROPIC_API_KEY}
       
-  - model_name: claude-3-sonnet-20240229
+  - model_name: claude-opus-4-1
     litellm_params:
-      model: claude-3-sonnet-20240229
+      model: claude-opus-4-1
       api_key: ${ANTHROPIC_API_KEY}
       
-  - model_name: claude-3-haiku-20240307
+  - model_name: claude-haiku-4-5
     litellm_params:
-      model: claude-3-haiku-20240307
+      model: claude-haiku-4-5
       api_key: ${ANTHROPIC_API_KEY}
 
   # Azure OpenAI Models
@@ -69,13 +84,14 @@ model_list:
 litellm_settings:
   # Fallback models if primary fails
   fallbacks:
-    - model: gpt-4
+    - model: gpt-5
       fallback_models:
-        - gpt-4-turbo-preview
-        - claude-3-opus-20240229
-    - model: gpt-3.5-turbo
+        - gpt-4.1
+        - claude-sonnet-4-5
+    - model: claude-sonnet-4-5
       fallback_models:
-        - claude-3-haiku-20240307
+        - claude-opus-4-1
+        - gpt-5
 
   # Set default values
   set_verbose: false
@@ -88,10 +104,10 @@ litellm_settings:
   
   # Context window fallbacks
   context_window_fallbacks:
-    - model: gpt-4
+    - model: gpt-5
       fallback_models:
-        - gpt-4-32k
-        - claude-3-opus-20240229
+        - gpt-4.1
+        - claude-sonnet-4-5
 
 # Router settings
 router_settings:
@@ -99,11 +115,12 @@ router_settings:
   
   # Model aliases
   model_aliases:
-    gpt4: gpt-4
-    gpt3: gpt-3.5-turbo
-    claude-opus: claude-3-opus-20240229
-    claude-sonnet: claude-3-sonnet-20240229
-    claude-haiku: claude-3-haiku-20240307
+    gpt5: gpt-5
+    gpt4: gpt-4.1
+    claude: claude-sonnet-4-5
+    claude-sonnet: claude-sonnet-4-5
+    claude-opus: claude-opus-4-1
+    claude-haiku: claude-haiku-4-5
 
 # Success callbacks for logging
 success_callback: ["langfuse"]

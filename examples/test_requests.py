@@ -28,7 +28,7 @@ def test_list_models():
     return response.status_code == 200
 
 
-def test_chat_completion(model="gpt-3.5-turbo", user_id="test-user", session_id=None):
+def test_chat_completion(model="gpt-5-mini", user_id="test-user", session_id=None):
     """Test chat completion endpoint."""
     print(f"\n=== Testing Chat Completion with {model} ===")
     
@@ -104,7 +104,7 @@ def test_cpp_unit_test_generation():
     }
     
     data = {
-        "model": "gpt-4",
+        "model": "gpt-5",
         "messages": [
             {
                 "role": "system",
@@ -174,7 +174,7 @@ def test_streaming_completion():
     }
     
     data = {
-        "model": "gpt-3.5-turbo",
+        "model": "gpt-5-mini",
         "messages": [
             {
                 "role": "user",
@@ -220,11 +220,13 @@ def run_all_tests():
     tests = [
         ("Health Check", test_health_check),
         ("List Models", test_list_models),
-        ("Chat Completion (GPT-3.5)", lambda: test_chat_completion("gpt-3.5-turbo")),
-        ("C++ Unit Test Generation", test_cpp_unit_test_generation),
-        # Uncomment to test other models (requires API keys)
-        # ("Chat Completion (GPT-4)", lambda: test_chat_completion("gpt-4")),
-        # ("Chat Completion (Claude)", lambda: test_chat_completion("claude-3-sonnet-20240229")),
+        ("Chat Completion (GPT-5 Mini)", lambda: test_chat_completion("gpt-5-mini")),
+        ("C++ Unit Test Generation (GPT-5)", test_cpp_unit_test_generation),
+        # Uncomment to test other latest models (requires API keys)
+        # ("Chat Completion (GPT-5)", lambda: test_chat_completion("gpt-5")),
+        # ("Chat Completion (GPT-4.1)", lambda: test_chat_completion("gpt-4.1")),
+        # ("Chat Completion (Claude Sonnet 4.5)", lambda: test_chat_completion("claude-sonnet-4-5")),
+        # ("Chat Completion (Claude Opus 4.1)", lambda: test_chat_completion("claude-opus-4-1")),
         # ("Streaming Completion", test_streaming_completion),
     ]
     

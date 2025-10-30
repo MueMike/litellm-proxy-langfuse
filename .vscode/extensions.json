@@ -1,0 +1,41 @@
+{
+  "recommendations": [
+    // Python Development
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.black-formatter",
+    "ms-python.isort",
+    "ms-python.flake8",
+    
+    // Docker
+    "ms-azuretools.vscode-docker",
+    
+    // YAML and Configuration
+    "redhat.vscode-yaml",
+    
+    // REST API Testing
+    "humao.rest-client",
+    
+    // AI Coding Assistants (choose one or both)
+    "continue.continue",
+    "github.copilot",
+    "github.copilot-chat",
+    
+    // Git
+    "eamodio.gitlens",
+    
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    
+    // JSON
+    "esbenp.prettier-vscode",
+    
+    // Testing
+    "littlefoxteam.vscode-python-test-adapter",
+    
+    // Environment Variables
+    "mikestead.dotenv"
+  ],
+  "unwantedRecommendations": []
+}
