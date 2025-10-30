@@ -1,0 +1,53 @@
+{
+  "// VSCode Settings for LiteLLM Proxy Integration": "",
+  "// Place this in .vscode/settings.json in your project": "",
+  
+  "// GitHub Copilot Configuration": "",
+  "github.copilot.advanced": {
+    "debug.overrideEngine": "gpt-4",
+    "debug.testOverrideProxyUrl": "http://localhost:8000",
+    "debug.overrideProxyUrl": "http://localhost:8000"
+  },
+  
+  "// Alternative: Use Continue extension with custom models": "",
+  "continue.telemetryEnabled": false,
+  "continue.models": [
+    {
+      "title": "GPT-4 via Proxy",
+      "provider": "openai",
+      "model": "gpt-4",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    },
+    {
+      "title": "Claude 3 Opus via Proxy",
+      "provider": "anthropic",
+      "model": "claude-3-opus-20240229",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    },
+    {
+      "title": "Claude 3 Sonnet via Proxy",
+      "provider": "anthropic",
+      "model": "claude-3-sonnet-20240229",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    }
+  ],
+  
+  "// Custom Headers for Tracking": "",
+  "continue.customHeaders": {
+    "X-User-ID": "your-username",
+    "X-Session-ID": "coding-session-${timestamp}"
+  },
+  
+  "// CodeGPT Extension Configuration": "",
+  "codegpt.apiKey": "dummy-key-if-auth-disabled",
+  "codegpt.apiUrl": "http://localhost:8000/v1",
+  "codegpt.model": "gpt-4",
+  
+  "// Codeium Configuration": "",
+  "codeium.enableConfig": {
+    "apiUrl": "http://localhost:8000/v1"
+  }
+}

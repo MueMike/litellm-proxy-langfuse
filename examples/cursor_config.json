@@ -1,0 +1,77 @@
+{
+  "// Cursor IDE Configuration for LiteLLM Proxy": "",
+  "// Place this in your Cursor settings": "",
+  
+  "models": {
+    "default": "gpt-4-via-proxy",
+    "available": [
+      {
+        "id": "gpt-4-via-proxy",
+        "name": "GPT-4 (LiteLLM Proxy)",
+        "provider": "openai",
+        "apiBase": "http://localhost:8000/v1",
+        "apiKey": "dummy-key-if-auth-disabled",
+        "model": "gpt-4",
+        "contextWindow": 8192,
+        "maxTokens": 4096
+      },
+      {
+        "id": "gpt-4-turbo-via-proxy",
+        "name": "GPT-4 Turbo (LiteLLM Proxy)",
+        "provider": "openai",
+        "apiBase": "http://localhost:8000/v1",
+        "apiKey": "dummy-key-if-auth-disabled",
+        "model": "gpt-4-turbo-preview",
+        "contextWindow": 128000,
+        "maxTokens": 4096
+      },
+      {
+        "id": "claude-opus-via-proxy",
+        "name": "Claude 3 Opus (LiteLLM Proxy)",
+        "provider": "anthropic",
+        "apiBase": "http://localhost:8000/v1",
+        "apiKey": "dummy-key-if-auth-disabled",
+        "model": "claude-3-opus-20240229",
+        "contextWindow": 200000,
+        "maxTokens": 4096
+      },
+      {
+        "id": "claude-sonnet-via-proxy",
+        "name": "Claude 3 Sonnet (LiteLLM Proxy)",
+        "provider": "anthropic",
+        "apiBase": "http://localhost:8000/v1",
+        "apiKey": "dummy-key-if-auth-disabled",
+        "model": "claude-3-sonnet-20240229",
+        "contextWindow": 200000,
+        "maxTokens": 4096
+      },
+      {
+        "id": "claude-haiku-via-proxy",
+        "name": "Claude 3 Haiku (LiteLLM Proxy)",
+        "provider": "anthropic",
+        "apiBase": "http://localhost:8000/v1",
+        "apiKey": "dummy-key-if-auth-disabled",
+        "model": "claude-3-haiku-20240307",
+        "contextWindow": 200000,
+        "maxTokens": 4096
+      }
+    ]
+  },
+  
+  "features": {
+    "codeCompletion": true,
+    "chat": true,
+    "codeReview": true,
+    "inlineEditing": true
+  },
+  
+  "customHeaders": {
+    "X-User-ID": "your-username",
+    "X-Session-ID": "cursor-session"
+  },
+  
+  "telemetry": {
+    "enabled": true,
+    "endpoint": "http://localhost:8000/v1"
+  }
+}
