@@ -1,0 +1,112 @@
+# LiteLLM Configuration
+# This file defines model configurations and routing rules
+
+# Model definitions
+model_list:
+  # OpenAI Models
+  - model_name: gpt-4-turbo-preview
+    litellm_params:
+      model: gpt-4-turbo-preview
+      api_key: ${OPENAI_API_KEY}
+      
+  - model_name: gpt-4
+    litellm_params:
+      model: gpt-4
+      api_key: ${OPENAI_API_KEY}
+      
+  - model_name: gpt-3.5-turbo
+    litellm_params:
+      model: gpt-3.5-turbo
+      api_key: ${OPENAI_API_KEY}
+
+  # Anthropic Claude Models
+  - model_name: claude-3-opus-20240229
+    litellm_params:
+      model: claude-3-opus-20240229
+      api_key: ${ANTHROPIC_API_KEY}
+      
+  - model_name: claude-3-sonnet-20240229
+    litellm_params:
+      model: claude-3-sonnet-20240229
+      api_key: ${ANTHROPIC_API_KEY}
+      
+  - model_name: claude-3-haiku-20240307
+    litellm_params:
+      model: claude-3-haiku-20240307
+      api_key: ${ANTHROPIC_API_KEY}
+
+  # Azure OpenAI Models
+  - model_name: azure-gpt-4
+    litellm_params:
+      model: azure/gpt-4
+      api_base: ${AZURE_API_BASE}
+      api_key: ${AZURE_API_KEY}
+      api_version: ${AZURE_API_VERSION}
+
+  # AWS Bedrock Models
+  - model_name: bedrock-claude-3-opus
+    litellm_params:
+      model: bedrock/anthropic.claude-3-opus-20240229-v1:0
+      aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+      aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+      aws_region_name: ${AWS_REGION_NAME}
+
+  - model_name: bedrock-claude-3-sonnet
+    litellm_params:
+      model: bedrock/anthropic.claude-3-sonnet-20240229-v1:0
+      aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+      aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+      aws_region_name: ${AWS_REGION_NAME}
+
+  # Google Vertex AI Models
+  - model_name: vertex-gemini-pro
+    litellm_params:
+      model: vertex_ai/gemini-pro
+      vertex_project: ${VERTEX_PROJECT}
+      vertex_location: ${VERTEX_LOCATION}
+
+# General settings
+litellm_settings:
+  # Fallback models if primary fails
+  fallbacks:
+    - model: gpt-4
+      fallback_models:
+        - gpt-4-turbo-preview
+        - claude-3-opus-20240229
+    - model: gpt-3.5-turbo
+      fallback_models:
+        - claude-3-haiku-20240307
+
+  # Set default values
+  set_verbose: false
+  
+  # Request timeout in seconds
+  request_timeout: 600
+  
+  # Max retries
+  num_retries: 3
+  
+  # Context window fallbacks
+  context_window_fallbacks:
+    - model: gpt-4
+      fallback_models:
+        - gpt-4-32k
+        - claude-3-opus-20240229
+
+# Router settings
+router_settings:
+  routing_strategy: simple-shuffle  # simple-shuffle, least-busy, latency-based
+  
+  # Model aliases
+  model_aliases:
+    gpt4: gpt-4
+    gpt3: gpt-3.5-turbo
+    claude-opus: claude-3-opus-20240229
+    claude-sonnet: claude-3-sonnet-20240229
+    claude-haiku: claude-3-haiku-20240307
+
+# Success callbacks for logging
+success_callback: ["langfuse"]
+
+# Failure callbacks for error tracking
+failure_callback: ["langfuse"]

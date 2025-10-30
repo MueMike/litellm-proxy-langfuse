@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  litellm-proxy:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: litellm-proxy-langfuse
+    ports:
+      - "8000:8000"  # Proxy API
+      - "9090:9090"  # Prometheus metrics
+    environment:
+      # LangFuse Configuration
+      - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY}
+      - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY}
+      - LANGFUSE_HOST=${LANGFUSE_HOST:-https://cloud.langfuse.com}
+      - LANGFUSE_ENABLED=${LANGFUSE_ENABLED:-true}
+      
+      # Proxy Configuration
+      - PROXY_HOST=0.0.0.0
+      - PROXY_PORT=8000
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DEBUG_MODE=${DEBUG_MODE:-false}
+      
+      # LLM Provider API Keys
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - AZURE_API_KEY=${AZURE_API_KEY}
+      - AZURE_API_BASE=${AZURE_API_BASE}
+      - AZURE_API_VERSION=${AZURE_API_VERSION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION_NAME=${AWS_REGION_NAME:-us-east-1}
+      - VERTEX_PROJECT=${VERTEX_PROJECT}
+      - VERTEX_LOCATION=${VERTEX_LOCATION:-us-central1}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+      
+      # Security
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
+      - REQUIRE_AUTH=${REQUIRE_AUTH:-false}
+      
+      # Advanced Settings
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+      - REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-600}
+      - ENABLE_STREAMING=${ENABLE_STREAMING:-true}
+      - ENABLE_CACHING=${ENABLE_CACHING:-false}
+      - CACHE_TTL=${CACHE_TTL:-3600}
+      
+      # Rate Limiting
+      - ENABLE_RATE_LIMITING=${ENABLE_RATE_LIMITING:-false}
+      - RATE_LIMIT_RPM=${RATE_LIMIT_RPM:-60}
+      - RATE_LIMIT_TPM=${RATE_LIMIT_TPM:-90000}
+      
+      # Monitoring
+      - ENABLE_PROMETHEUS=${ENABLE_PROMETHEUS:-true}
+      - PROMETHEUS_PORT=9090
+      - ENABLE_REQUEST_LOGGING=${ENABLE_REQUEST_LOGGING:-true}
+      - ENABLE_COST_TRACKING=${ENABLE_COST_TRACKING:-true}
+    
+    volumes:
+      # Mount config files (optional, for customization)
+      - ../config:/app/config:ro
+      # Mount Google Cloud credentials if needed
+      - ${GOOGLE_APPLICATION_CREDENTIALS:-/dev/null}:/app/gcp-credentials.json:ro
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  default:
+    name: litellm-network
