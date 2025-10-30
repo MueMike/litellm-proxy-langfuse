@@ -29,20 +29,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Python dependencies from builder
-COPY --from=builder /root/.local /root/.local
+# Create non-root user first
+RUN useradd -m -u 1000 litellm
+
+# Copy Python dependencies from builder to litellm user's home
+COPY --from=builder /root/.local /home/litellm/.local
 
 # Copy application code
 COPY src/ ./src/
 COPY config/ ./config/
 COPY pyproject.toml .
 
-# Make sure scripts in .local are usable
-ENV PATH=/root/.local/bin:$PATH
+# Change ownership of all files
+RUN chown -R litellm:litellm /app /home/litellm/.local
 
-# Create non-root user
-RUN useradd -m -u 1000 litellm && \
-    chown -R litellm:litellm /app
+# Make sure scripts in .local are usable
+ENV PATH=/home/litellm/.local/bin:$PATH
 
 # Switch to non-root user
 USER litellm
