@@ -8,7 +8,7 @@ This directory contains VSCode workspace configuration files for developing and 
 **Purpose**: Workspace settings for Python development and AI assistant integration
 
 **Key Features**:
-- Python interpreter configuration (uses `venv/bin/python`)
+- Python interpreter configuration (uses `venv/bin/python` on Unix/Mac, `venv/Scripts/python` on Windows)
 - Linting and formatting setup (flake8, mypy, black, isort)
 - Testing configuration (pytest)
 - **Continue extension** models configured to use proxy at `http://localhost:8000/v1`
@@ -235,7 +235,7 @@ DEBUG_MODE=true
 |------|------------------|-----------------|
 | Run Task | N/A | `Ctrl+Shift+P` → "Tasks: Run Task" |
 | Start Debugging | `F5` | Run & Debug panel |
-| Open Command Palette | `Ctrl+Shift+P` (Windows/Linux)<br>`Cmd+Shift+P` (Mac) | N/A |
+| Open Command Palette | `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac) | N/A |
 | Open Terminal | `` Ctrl+` `` | View → Terminal |
 | Toggle Sidebar | `Ctrl+B` | View → Appearance → Sidebar |
 
