@@ -86,7 +86,31 @@ Expected response:
 }
 ```
 
-### 4. Verify Tracing
+### 4. Test the API
+
+Run the API test script to verify everything is working:
+
+```bash
+# Option 1: Shell script (Linux/Mac)
+./test_api.sh
+
+# Option 2: Python script (Windows/Linux/Mac)
+python test_api.py
+```
+
+The test script will verify:
+- Container is running
+- Health check endpoint
+- Models endpoint
+- Chat completion endpoint
+- Metrics endpoint (optional)
+
+Expected output:
+```
+✓ All tests passed! API is working correctly.
+```
+
+### 5. Verify LangFuse Tracing
 
 Make a test request:
 
@@ -197,24 +221,44 @@ Configure Copilot to use the proxy (add to `.vscode/settings.json`):
 
 ## Testing the Proxy
 
-### Using the Test Script
+### Quick API Test (Recommended)
 
-Run the comprehensive test suite:
+After starting the Docker container, run the API test script to verify everything is working:
 
 ```bash
-# Ensure the proxy is running
-docker-compose ps
+cd docker
 
-# Run tests
+# Option 1: Shell script (Linux/Mac)
+./test_api.sh
+
+# Option 2: Python script (cross-platform)
+python test_api.py
+```
+
+This will test:
+- ✓ Container status
+- ✓ Health endpoint
+- ✓ Models endpoint
+- ✓ Chat completion (basic test)
+- ✓ Metrics endpoint
+
+Exit code 0 means all tests passed.
+
+### Comprehensive Test Suite
+
+For more thorough testing including LangFuse tracing validation:
+
+```bash
+# From repository root
 python examples/test_requests.py
 ```
 
-The test script will:
+This comprehensive suite will:
 - ✓ Check health endpoint
 - ✓ List available models
-- ✓ Test chat completions
+- ✓ Test chat completions with various models
 - ✓ Test C++ unit test generation with metadata
-- ✓ Verify trace headers
+- ✓ Verify trace headers and LangFuse integration
 
 ### Manual Testing with curl
 
