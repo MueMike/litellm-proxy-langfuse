@@ -1,5 +1,7 @@
 """Integration tests."""
 
+import os
+
 import pytest
 
 from src.config import Settings
@@ -88,12 +90,11 @@ def test_get_model_provider():
     assert get_model_provider("unknown-model") == "unknown"
 
 
-def test_get_provider_config():
+def test_get_provider_config(monkeypatch):
     """Test provider config retrieval."""
-    settings = Settings(
-        OPENAI_API_KEY="test-key",
-        ANTHROPIC_API_KEY="test-key-2",
-    )
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key-2")
+    settings = Settings()
     
     openai_config = get_provider_config("openai", settings)
     assert openai_config["api_key"] == "test-key"

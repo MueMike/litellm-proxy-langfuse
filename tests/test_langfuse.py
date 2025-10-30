@@ -1,5 +1,7 @@
 """Unit tests for LangFuse integration."""
 
+import os
+
 import pytest
 
 from src.config import Settings
@@ -7,24 +9,22 @@ from src.integrations import LangFuseClient
 
 
 @pytest.fixture
-def settings():
+def settings(monkeypatch):
     """Create test settings without LangFuse credentials."""
-    return Settings(
-        langfuse_enabled=False,
-        langfuse_public_key=None,
-        langfuse_secret_key=None,
-    )
+    monkeypatch.setenv("LANGFUSE_ENABLED", "false")
+    monkeypatch.delenv("LANGFUSE_PUBLIC_KEY", raising=False)
+    monkeypatch.delenv("LANGFUSE_SECRET_KEY", raising=False)
+    return Settings()
 
 
 @pytest.fixture
-def configured_settings():
+def configured_settings(monkeypatch):
     """Create test settings with LangFuse credentials."""
-    return Settings(
-        langfuse_enabled=True,
-        LANGFUSE_PUBLIC_KEY="pk-test-key",
-        LANGFUSE_SECRET_KEY="sk-test-key",
-        LANGFUSE_HOST="https://test.langfuse.com",
-    )
+    monkeypatch.setenv("LANGFUSE_ENABLED", "true")
+    monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "pk-test-key")
+    monkeypatch.setenv("LANGFUSE_SECRET_KEY", "sk-test-key")
+    monkeypatch.setenv("LANGFUSE_HOST", "https://test.langfuse.com")
+    return Settings()
 
 
 def test_langfuse_client_disabled(settings):
