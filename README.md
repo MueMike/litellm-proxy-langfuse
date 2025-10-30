@@ -296,6 +296,12 @@ X-Duration-Ms: <milliseconds>
 
 ### Testing
 
+Run comprehensive curl tests:
+```bash
+./tests/test_curl.sh              # Test localhost:8000
+./tests/test_curl.sh <host:port>  # Test custom host/port
+```
+
 Run example requests:
 ```bash
 python examples/test_requests.py
