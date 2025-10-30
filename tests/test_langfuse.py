@@ -21,9 +21,9 @@ def configured_settings():
     """Create test settings with LangFuse credentials."""
     return Settings(
         langfuse_enabled=True,
-        langfuse_public_key="pk-test-key",
-        langfuse_secret_key="sk-test-key",
-        langfuse_host="https://test.langfuse.com",
+        LANGFUSE_PUBLIC_KEY="pk-test-key",
+        LANGFUSE_SECRET_KEY="sk-test-key",
+        LANGFUSE_HOST="https://test.langfuse.com",
     )
 
 

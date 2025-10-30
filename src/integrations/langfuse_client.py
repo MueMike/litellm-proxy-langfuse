@@ -4,7 +4,6 @@ import logging
 from typing import Any, Dict, Optional
 
 from langfuse import Langfuse
-from langfuse.decorators import observe
 
 from ..config import Settings, get_settings
 from ..utils import calculate_cost, extract_metadata, generate_trace_id

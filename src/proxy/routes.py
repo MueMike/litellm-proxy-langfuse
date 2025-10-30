@@ -62,7 +62,6 @@ async def readiness_check():
 async def chat_completions(
     request: Request,
     completion_request: ChatCompletionRequest,
-    langfuse_client: Optional[LangFuseClient] = None,
 ):
     """
     Handle chat completion requests.
@@ -70,7 +69,6 @@ async def chat_completions(
     Args:
         request: FastAPI request
         completion_request: Chat completion request data
-        langfuse_client: Optional LangFuse client
         
     Returns:
         Chat completion response
@@ -87,6 +85,9 @@ async def chat_completions(
     trace_id = getattr(request.state, "trace_id", None)
     user_id = request.headers.get("X-User-ID", completion_request.user or "anonymous")
     session_id = request.headers.get("X-Session-ID", trace_id)
+    
+    # Get LangFuse client from request state
+    langfuse_client = getattr(request.state, "langfuse_client", None)
     
     # Increment active requests
     metrics_collector.inc_active_requests(model, provider)

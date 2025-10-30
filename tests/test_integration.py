@@ -91,8 +91,8 @@ def test_get_model_provider():
 def test_get_provider_config():
     """Test provider config retrieval."""
     settings = Settings(
-        openai_api_key="test-key",
-        anthropic_api_key="test-key-2",
+        OPENAI_API_KEY="test-key",
+        ANTHROPIC_API_KEY="test-key-2",
     )
     
     openai_config = get_provider_config("openai", settings)
