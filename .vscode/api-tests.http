@@ -30,14 +30,14 @@ Content-Type: application/json
 # Chat Completion Requests
 # ============================================================================
 
-### Simple Chat Completion with GPT-3.5 Turbo
+### Simple Chat Completion with GPT-5 Mini (Latest Fast Model)
 POST {{baseUrl}}/v1/chat/completions
 Content-Type: application/json
 X-User-ID: {{userId}}
 X-Session-ID: {{sessionId}}
 
 {
-  "model": "gpt-3.5-turbo",
+  "model": "gpt-5-mini",
   "messages": [
     {
       "role": "user",
@@ -50,14 +50,14 @@ X-Session-ID: {{sessionId}}
 
 ###
 
-### Chat Completion with GPT-4 and Metadata
+### Chat Completion with GPT-5 and Metadata (Latest Best Model)
 POST {{baseUrl}}/v1/chat/completions
 Content-Type: application/json
 X-User-ID: {{userId}}
 X-Session-ID: {{sessionId}}
 
 {
-  "model": "gpt-4",
+  "model": "gpt-5",
   "messages": [
     {
       "role": "system",
@@ -79,14 +79,14 @@ X-Session-ID: {{sessionId}}
 
 ###
 
-### Code Generation with Claude 3 Sonnet
+### Code Generation with Claude Sonnet 4.5 (Best for Coding)
 POST {{baseUrl}}/v1/chat/completions
 Content-Type: application/json
 X-User-ID: {{userId}}
 X-Session-ID: {{sessionId}}
 
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-5",
   "messages": [
     {
       "role": "system",
@@ -115,7 +115,7 @@ X-User-ID: {{userId}}
 X-Session-ID: conversation-multi-turn
 
 {
-  "model": "gpt-4",
+  "model": "gpt-5",
   "messages": [
     {
       "role": "system",
@@ -147,7 +147,7 @@ X-User-ID: {{userId}}
 X-Session-ID: code-review-session
 
 {
-  "model": "gpt-4",
+  "model": "gpt-5",
   "messages": [
     {
       "role": "system",
@@ -175,7 +175,7 @@ X-User-ID: {{userId}}
 X-Session-ID: unittest-generation
 
 {
-  "model": "gpt-4",
+  "model": "claude-sonnet-4-5",
   "messages": [
     {
       "role": "system",
@@ -204,7 +204,7 @@ X-User-ID: {{userId}}
 X-Session-ID: bug-fix-session
 
 {
-  "model": "gpt-4",
+  "model": "claude-sonnet-4-5",
   "messages": [
     {
       "role": "system",
@@ -232,7 +232,7 @@ X-User-ID: {{userId}}
 X-Session-ID: docs-generation
 
 {
-  "model": "gpt-4",
+  "model": "gpt-5",
   "messages": [
     {
       "role": "system",
@@ -264,7 +264,7 @@ X-User-ID: {{userId}}
 X-Session-ID: streaming-session
 
 {
-  "model": "gpt-3.5-turbo",
+  "model": "gpt-5-mini",
   "messages": [
     {
       "role": "user",
@@ -281,14 +281,14 @@ X-Session-ID: streaming-session
 # Performance and Cost Testing
 # ============================================================================
 
-### Fast Model - Claude Haiku
+### Fast Model - Claude Haiku 4.5
 POST {{baseUrl}}/v1/chat/completions
 Content-Type: application/json
 X-User-ID: {{userId}}
 X-Session-ID: performance-test
 
 {
-  "model": "claude-3-haiku-20240307",
+  "model": "claude-haiku-4-5",
   "messages": [
     {
       "role": "user",

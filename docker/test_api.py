@@ -123,7 +123,7 @@ def test_chat_completion() -> bool:
     print_test("Testing Chat Completion Endpoint (Basic)")
     
     payload = {
-        "model": "gpt-3.5-turbo",
+        "model": "gpt-5-mini",
         "messages": [
             {"role": "user", "content": "Say hello"}
         ],

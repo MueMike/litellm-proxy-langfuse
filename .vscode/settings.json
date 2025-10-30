@@ -77,44 +77,44 @@
   "continue.telemetryEnabled": false,
   "continue.models": [
     {
-      "title": "GPT-4 via Proxy (Recommended)",
+      "title": "GPT-5 via Proxy (Latest & Best)",
       "provider": "openai",
-      "model": "gpt-4",
+      "model": "gpt-5",
       "apiBase": "http://localhost:8000/v1",
       "apiKey": "dummy-key-if-auth-disabled"
     },
     {
-      "title": "GPT-4 Turbo via Proxy",
+      "title": "GPT-5 Mini via Proxy",
       "provider": "openai",
-      "model": "gpt-4-turbo-preview",
+      "model": "gpt-5-mini",
       "apiBase": "http://localhost:8000/v1",
       "apiKey": "dummy-key-if-auth-disabled"
     },
     {
-      "title": "GPT-3.5 via Proxy (Fast)",
+      "title": "GPT-4.1 via Proxy",
       "provider": "openai",
-      "model": "gpt-3.5-turbo",
+      "model": "gpt-4.1",
       "apiBase": "http://localhost:8000/v1",
       "apiKey": "dummy-key-if-auth-disabled"
     },
     {
-      "title": "Claude 3 Opus via Proxy",
+      "title": "Claude Sonnet 4.5 via Proxy (Latest & Best for Coding)",
       "provider": "anthropic",
-      "model": "claude-3-opus-20240229",
+      "model": "claude-sonnet-4-5",
       "apiBase": "http://localhost:8000/v1",
       "apiKey": "dummy-key-if-auth-disabled"
     },
     {
-      "title": "Claude 3 Sonnet via Proxy",
+      "title": "Claude Opus 4.1 via Proxy",
       "provider": "anthropic",
-      "model": "claude-3-sonnet-20240229",
+      "model": "claude-opus-4-1",
       "apiBase": "http://localhost:8000/v1",
       "apiKey": "dummy-key-if-auth-disabled"
     },
     {
-      "title": "Claude 3 Haiku via Proxy (Fast)",
+      "title": "Claude Haiku 4.5 via Proxy (Fast)",
       "provider": "anthropic",
-      "model": "claude-3-haiku-20240307",
+      "model": "claude-haiku-4-5",
       "apiBase": "http://localhost:8000/v1",
       "apiKey": "dummy-key-if-auth-disabled"
     }
@@ -130,7 +130,7 @@
   // GitHub Copilot Configuration
   // ============================================================================
   "github.copilot.advanced": {
-    "debug.overrideEngine": "gpt-4",
+    "debug.overrideEngine": "gpt-5",
     "debug.testOverrideProxyUrl": "http://localhost:8000",
     "debug.overrideProxyUrl": "http://localhost:8000"
   },

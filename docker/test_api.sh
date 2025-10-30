@@ -105,7 +105,7 @@ test_chat_completion() {
     
     # Simple test request
     payload='{
-        "model": "gpt-3.5-turbo",
+        "model": "gpt-5-mini",
         "messages": [
             {"role": "user", "content": "Say hello"}
         ],
