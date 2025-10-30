@@ -27,12 +27,16 @@ env/
 .venv
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
+
+# VSCode - Allow shared configuration but ignore user-specific settings
+!.vscode/
+.vscode/*.log
+.vscode/settings.json.user
 
 # Environment
 .env

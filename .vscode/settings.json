@@ -1,0 +1,193 @@
+{
+  // ============================================================================
+  // Python Configuration
+  // ============================================================================
+  "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/src"
+  ],
+  
+  // Linting and Formatting
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": [
+    "--line-length=100"
+  ],
+  
+  // Testing
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  
+  // ============================================================================
+  // Editor Settings
+  // ============================================================================
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.rulers": [
+    100,
+    120
+  ],
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  
+  // File associations
+  "files.associations": {
+    "*.yaml": "yaml",
+    "*.yml": "yaml",
+    ".env*": "properties",
+    "Dockerfile*": "dockerfile"
+  },
+  
+  // Exclude files from explorer and search
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.mypy_cache": true,
+    "**/venv": true,
+    "**/.venv": true,
+    "**/*.egg-info": true
+  },
+  
+  "search.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/venv": true,
+    "**/.venv": true
+  },
+  
+  // ============================================================================
+  // AI Coding Assistant Configuration (Continue Extension)
+  // ============================================================================
+  "continue.telemetryEnabled": false,
+  "continue.models": [
+    {
+      "title": "GPT-4 via Proxy (Recommended)",
+      "provider": "openai",
+      "model": "gpt-4",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    },
+    {
+      "title": "GPT-4 Turbo via Proxy",
+      "provider": "openai",
+      "model": "gpt-4-turbo-preview",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    },
+    {
+      "title": "GPT-3.5 via Proxy (Fast)",
+      "provider": "openai",
+      "model": "gpt-3.5-turbo",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    },
+    {
+      "title": "Claude 3 Opus via Proxy",
+      "provider": "anthropic",
+      "model": "claude-3-opus-20240229",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    },
+    {
+      "title": "Claude 3 Sonnet via Proxy",
+      "provider": "anthropic",
+      "model": "claude-3-sonnet-20240229",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    },
+    {
+      "title": "Claude 3 Haiku via Proxy (Fast)",
+      "provider": "anthropic",
+      "model": "claude-3-haiku-20240307",
+      "apiBase": "http://localhost:8000/v1",
+      "apiKey": "dummy-key-if-auth-disabled"
+    }
+  ],
+  
+  // Custom headers for tracking in LangFuse
+  "continue.customHeaders": {
+    "X-User-ID": "vscode-developer",
+    "X-Session-ID": "vscode-coding-session"
+  },
+  
+  // ============================================================================
+  // GitHub Copilot Configuration
+  // ============================================================================
+  "github.copilot.advanced": {
+    "debug.overrideEngine": "gpt-4",
+    "debug.testOverrideProxyUrl": "http://localhost:8000",
+    "debug.overrideProxyUrl": "http://localhost:8000"
+  },
+  
+  // ============================================================================
+  // Docker Configuration
+  // ============================================================================
+  "docker.containers.description": [
+    "ContainerName",
+    "Status",
+    "Image"
+  ],
+  "docker.containers.sortBy": "Label",
+  
+  // ============================================================================
+  // Terminal Configuration
+  // ============================================================================
+  "terminal.integrated.env.linux": {
+    "PYTHONPATH": "${workspaceFolder}/src"
+  },
+  "terminal.integrated.env.osx": {
+    "PYTHONPATH": "${workspaceFolder}/src"
+  },
+  "terminal.integrated.env.windows": {
+    "PYTHONPATH": "${workspaceFolder}/src"
+  },
+  
+  // ============================================================================
+  // Language-specific Settings
+  // ============================================================================
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  }
+}

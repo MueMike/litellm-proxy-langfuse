@@ -1,0 +1,382 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // ============================================================================
+    // Environment Setup Tasks
+    // ============================================================================
+    {
+      "label": "check-env-file",
+      "type": "shell",
+      "command": "test -f .env || (echo 'Error: .env file not found. Copy .env.example to .env and configure it.' && exit 1)",
+      "presentation": {
+        "reveal": "silent",
+        "close": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: Create Virtual Environment",
+      "type": "shell",
+      "command": "python3 -m venv venv && echo 'Virtual environment created. Activate it with: source venv/bin/activate'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: Install Dependencies",
+      "type": "shell",
+      "command": "pip install -r requirements.txt",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: Create .env from Example",
+      "type": "shell",
+      "command": "cp .env.example .env && echo '.env file created. Please edit it with your API keys.'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    
+    // ============================================================================
+    // Local Development Tasks
+    // ============================================================================
+    {
+      "label": "Start Proxy (Local)",
+      "type": "shell",
+      "command": "python -m uvicorn src.proxy.server:create_app --factory --host 0.0.0.0 --port 8000 --reload",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^(.*)$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Started reloader process.*$",
+          "endsPattern": "^.*Application startup complete.*$"
+        }
+      },
+      "dependsOn": ["check-env-file"]
+    },
+    {
+      "label": "Start Proxy (Local, No Reload)",
+      "type": "shell",
+      "command": "python -m uvicorn src.proxy.server:create_app --factory --host 0.0.0.0 --port 8000",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "problemMatcher": [],
+      "dependsOn": ["check-env-file"]
+    },
+    
+    // ============================================================================
+    // Docker Tasks
+    // ============================================================================
+    {
+      "label": "Docker: Start Proxy",
+      "type": "shell",
+      "command": "cd docker && docker-compose up -d",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [],
+      "dependsOn": ["check-env-file"]
+    },
+    {
+      "label": "Docker: Start Proxy (Foreground)",
+      "type": "shell",
+      "command": "cd docker && docker-compose up",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "problemMatcher": [],
+      "dependsOn": ["check-env-file"]
+    },
+    {
+      "label": "Docker: Stop Proxy",
+      "type": "shell",
+      "command": "cd docker && docker-compose down",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Restart Proxy",
+      "type": "shell",
+      "command": "cd docker && docker-compose restart litellm-proxy",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Rebuild and Start",
+      "type": "shell",
+      "command": "cd docker && docker-compose up -d --build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [],
+      "dependsOn": ["check-env-file"]
+    },
+    {
+      "label": "Docker: View Logs",
+      "type": "shell",
+      "command": "cd docker && docker-compose logs -f litellm-proxy",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: View Logs (Last 100)",
+      "type": "shell",
+      "command": "cd docker && docker-compose logs --tail=100 litellm-proxy",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Check Status",
+      "type": "shell",
+      "command": "cd docker && docker-compose ps",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    
+    // ============================================================================
+    // Testing Tasks
+    // ============================================================================
+    {
+      "label": "Test: Run All Tests",
+      "type": "shell",
+      "command": "pytest tests/ -v",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test: Run with Coverage",
+      "type": "shell",
+      "command": "pytest tests/ --cov=src --cov-report=html --cov-report=term",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test: Run Current File",
+      "type": "shell",
+      "command": "pytest ${file} -v",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test: Run Example Requests",
+      "type": "shell",
+      "command": "python examples/test_requests.py",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [],
+      "dependsOn": ["ensure-proxy-running"]
+    },
+    {
+      "label": "ensure-proxy-running",
+      "type": "shell",
+      "command": "curl -f http://localhost:8000/health > /dev/null 2>&1 || (echo 'Error: Proxy is not running. Start it first with Docker or locally.' && exit 1)",
+      "presentation": {
+        "reveal": "silent",
+        "close": true
+      },
+      "problemMatcher": []
+    },
+    
+    // ============================================================================
+    // Health Check Tasks
+    // ============================================================================
+    {
+      "label": "Health: Check Proxy",
+      "type": "shell",
+      "command": "curl -s http://localhost:8000/health | python -m json.tool",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Health: List Models",
+      "type": "shell",
+      "command": "curl -s http://localhost:8000/v1/models | python -m json.tool",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Health: Check Metrics",
+      "type": "shell",
+      "command": "curl -s http://localhost:9090/metrics | head -50",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    
+    // ============================================================================
+    // Linting and Formatting Tasks
+    // ============================================================================
+    {
+      "label": "Lint: Run Flake8",
+      "type": "shell",
+      "command": "flake8 src/ tests/ --max-line-length=100",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint: Run MyPy",
+      "type": "shell",
+      "command": "mypy src/ --ignore-missing-imports",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Format: Run Black",
+      "type": "shell",
+      "command": "black src/ tests/ --line-length=100",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Format: Sort Imports",
+      "type": "shell",
+      "command": "isort src/ tests/",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint: Run All Checks",
+      "type": "shell",
+      "command": "black src/ tests/ --line-length=100 && isort src/ tests/ && flake8 src/ tests/ --max-line-length=100 && mypy src/ --ignore-missing-imports",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    
+    // ============================================================================
+    // Debug and Diagnostics Tasks
+    // ============================================================================
+    {
+      "label": "Debug: Show Environment Variables",
+      "type": "shell",
+      "command": "cd docker && docker-compose exec litellm-proxy env | grep -E 'LANGFUSE|OPENAI|ANTHROPIC|AZURE|AWS|PROXY' | sort",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Debug: Test LangFuse Connection",
+      "type": "shell",
+      "command": "cd docker && docker-compose logs litellm-proxy | grep -i langfuse | tail -20",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Debug: Show Recent Errors",
+      "type": "shell",
+      "command": "cd docker && docker-compose logs litellm-proxy | grep -i 'error\\|failed\\|exception' | tail -20",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    
+    // ============================================================================
+    // Cleanup Tasks
+    // ============================================================================
+    {
+      "label": "Clean: Remove Python Cache",
+      "type": "shell",
+      "command": "find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null; find . -type f -name '*.pyc' -delete 2>/dev/null; find . -type d -name '.pytest_cache' -exec rm -rf {} + 2>/dev/null; find . -type d -name '.mypy_cache' -exec rm -rf {} + 2>/dev/null; echo 'Python cache cleaned'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Clean: Remove Coverage Reports",
+      "type": "shell",
+      "command": "rm -rf htmlcov/ .coverage && echo 'Coverage reports cleaned'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
