@@ -80,6 +80,34 @@ def test_extract_metadata_with_custom():
     assert metadata["language"] == "python"
 
 
+def test_extract_metadata_with_none_metadata():
+    """Test metadata extraction when metadata field is None (regression test for NoneType error)."""
+    request_data = {
+        "model": "gpt-4",
+        "temperature": 0.7,
+        "metadata": None,
+    }
+    
+    # Should not raise "NoneType is not iterable" error
+    metadata = extract_metadata(request_data)
+    assert metadata["model"] == "gpt-4"
+    assert metadata["temperature"] == 0.7
+    assert "metadata" not in metadata  # None values are filtered out
+
+
+def test_extract_metadata_without_metadata_field():
+    """Test metadata extraction when metadata field is not present."""
+    request_data = {
+        "model": "gpt-4",
+        "temperature": 0.7,
+    }
+    
+    # Should work fine without metadata field
+    metadata = extract_metadata(request_data)
+    assert metadata["model"] == "gpt-4"
+    assert metadata["temperature"] == 0.7
+
+
 def test_get_model_provider():
     """Test model provider detection."""
     assert get_model_provider("gpt-4") == "openai"
