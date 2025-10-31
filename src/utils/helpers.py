@@ -76,8 +76,8 @@ def extract_metadata(request_data: Dict[str, Any]) -> Dict[str, Any]:
         "stream": request_data.get("stream", False),
     }
 
-    # Add custom metadata if present
-    if "metadata" in request_data:
+    # Add custom metadata if present and not None
+    if "metadata" in request_data and request_data["metadata"] is not None:
         metadata.update(request_data["metadata"])
 
     # Remove None values
